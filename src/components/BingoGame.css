@@ -1,0 +1,421 @@
+/* Bingo Stage Styling */
+.bingo-stage {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Presentation Mode - Hide cursor only on main content area */
+.bingo-stage.presentation-mode .main-content {
+  cursor: none;
+}
+
+.bingo-stage.presentation-mode .word-display {
+  cursor: none;
+}
+
+/* Animated Background */
+.stage-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.background-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+/* Main Content */
+.main-content {
+  z-index: 10;
+  text-align: center;
+  position: relative;
+}
+
+/* Word Display */
+.word-display {
+  font-size: clamp(3.2rem, 10vw, 12rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 
+    0 0 20px rgba(255,255,255,0.5),
+    0 0 40px rgba(255,255,255,0.3),
+    0 4px 8px rgba(0,0,0,0.3);
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  min-height: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  line-height: 1;
+}
+
+.word-display .char {
+  transition: all 0.3s ease;
+}
+
+/* Word Counter */
+.word-counter {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 20;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Roll Button */
+.roll-button {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 30;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  border: 4px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 25px rgba(238, 90, 36, 0.4),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+
+.roll-button:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 
+    0 12px 35px rgba(238, 90, 36, 0.6),
+    inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.roll-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.roll-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.roll-button.rolling {
+  animation: rollSpin 0.8s ease-in-out;
+}
+
+@keyframes rollSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Used Words Button */
+.used-words-button {
+  position: fixed;
+  bottom: 3rem;
+  left: 3rem;
+  z-index: 30;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 25px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 6px 20px rgba(68, 160, 141, 0.4),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+
+.used-words-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(68, 160, 141, 0.6),
+    inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+/* Reset Button */
+.reset-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 30;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.reset-button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: rotate(180deg);
+}
+
+/* Modal Styling */
+.used-words-modal .modal-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  cursor: default;
+}
+
+.used-words-modal * {
+  cursor: default;
+}
+
+.modal-header-custom {
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px 20px 0 0 !important;
+}
+
+.modal-header-custom .modal-title {
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.modal-header-custom .btn-close {
+  filter: invert(1);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.modal-footer-custom .btn {
+  cursor: pointer;
+}
+
+.modal-body-custom {
+  max-height: 60vh;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.05);
+}
+
+.modal-footer-custom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  border-radius: 0 0 20px 20px !important;
+}
+
+/* Words Stats */
+.words-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+.total-counter, .remaining-counter {
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Words Grid */
+.words-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+
+.word-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+}
+
+.word-item:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+.word-number {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  min-width: 2rem;
+}
+
+.word-text {
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.no-words {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* Presentation Mode Indicator */
+.presentation-indicator {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+  background: rgba(255, 165, 0, 0.9);
+  color: white;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(10px);
+  animation: pulseOrange 2s ease-in-out infinite;
+}
+
+@keyframes pulseOrange {
+  0%, 100% { 
+    background: rgba(255, 165, 0, 0.9);
+    transform: translateX(-50%) scale(1);
+  }
+  50% { 
+    background: rgba(255, 140, 0, 1);
+    transform: translateX(-50%) scale(1.02);
+  }
+}
+
+/* Keyboard Shortcuts Hint */
+.shortcuts-hint {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  background: rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.7);
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.shortcuts-hint:hover {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .word-display {
+    font-size: clamp(2rem, 8vw, 8rem);
+    margin-bottom: 1rem;
+  }
+  
+  .roll-button {
+    width: 80px;
+    height: 80px;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 1rem;
+  }
+  
+  .used-words-button {
+    padding: 0.75rem 1.5rem;
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  .word-counter {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1rem;
+  }
+  
+  .words-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .shortcuts-hint {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-display {
+    font-size: clamp(1.5rem, 6vw, 6rem);
+  }
+  
+  .roll-button {
+    width: 60px;
+    height: 60px;
+    font-size: 0.8rem;
+  }
+  
+  .used-words-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .words-grid {
+    grid-template-columns: 1fr;
+  }
+}
