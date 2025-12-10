@@ -294,6 +294,11 @@ const BingoGame = () => {
       <div className="shortcuts-hint">
         Space/Enter: Roll • U: Used Words • Ctrl+R: Reset • Ctrl+C: Confetti • Ctrl+P: Presentation Mode
       </div>
+
+      {/* Love footer */}
+      <div className="love-footer">
+        made with <span className="love-heart">❤</span> by Technotutor
+      </div>
     </div>
   );
 };
