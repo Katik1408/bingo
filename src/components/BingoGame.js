@@ -297,7 +297,7 @@ const BingoGame = () => {
 
       {/* Love footer */}
       <div className="love-footer">
-        made with <span className="love-heart">❤</span> by Technotutor
+        made with <span className="love-heart">❤</span> by TechnoTutor
       </div>
     </div>
   );
